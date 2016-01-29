@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="14F1605" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苹果商店地址https://itunes.apple.com/cn/app/sou-gou-shu-ru-fa-dai-biao/id917670924?mt=8" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTm-R4-KFv">
+                                <rect key="frame" x="0.0" y="40" width="600" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通网页地址 http://www.sohu.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLm-QJ-AIy">
+                                <rect key="frame" x="0.0" y="131" width="600" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYq-48-9Pr">
+                                <rect key="frame" x="255" y="201" width="90" height="30"/>
+                                <state key="normal" title="打开苹果商店"/>
+                                <connections>
+                                    <action selector="openAppStoreLink:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mHR-3N-fGs"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzn-hJ-fv1">
+                                <rect key="frame" x="255" y="250" width="90" height="30"/>
+                                <state key="normal" title="打开普通网页"/>
+                                <connections>
+                                    <action selector="openNormal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dut-uu-hOt"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KTm-R4-KFv" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="IAH-RF-xXR"/>
+                            <constraint firstItem="YYq-48-9Pr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="JUX-FO-Kuf"/>
+                            <constraint firstItem="RLm-QJ-AIy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="TEk-yp-php"/>
+                            <constraint firstItem="KTm-R4-KFv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="d9e-Dh-uBj"/>
+                            <constraint firstAttribute="trailing" secondItem="RLm-QJ-AIy" secondAttribute="trailing" id="eFd-nb-JOs"/>
+                            <constraint firstItem="RLm-QJ-AIy" firstAttribute="top" secondItem="KTm-R4-KFv" secondAttribute="bottom" constant="50" id="fpB-p3-l9I"/>
+                            <constraint firstItem="YYq-48-9Pr" firstAttribute="top" secondItem="RLm-QJ-AIy" secondAttribute="bottom" constant="49" id="mvl-gX-yU8"/>
+                            <constraint firstItem="Uzn-hJ-fv1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oKK-Hf-NtL"/>
+                            <constraint firstItem="Uzn-hJ-fv1" firstAttribute="top" secondItem="YYq-48-9Pr" secondAttribute="bottom" constant="19" id="pgJ-z5-PHz"/>
+                            <constraint firstAttribute="trailing" secondItem="KTm-R4-KFv" secondAttribute="trailing" id="twv-sF-6MG"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="370" y="375"/>
+        </scene>
+    </scenes>
+</document>
