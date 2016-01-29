@@ -31,6 +31,8 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     JKWSafariViewUseType useType;
     SFSafariViewController *safariVC;
     UIColor *oldTintColor;
+    UIColor *newTintColor;
+    UIColor *statusBarBackgroudColor;
     BOOL viewLoad;
 }
 
@@ -68,6 +70,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     //SKStoreProductViewController 支持iOS6+
     if (self.isAppleStoreLink) {
         useType = JKWSafariViewAppstore;
+        if (newTintColor) {
+        [[UINavigationBar appearance] setTintColor:newTintColor];
+        }
         NSString *appId = [self appIdInURL:self.url];
         [self showAppInApp:appId];
         viewLoad = YES;
@@ -84,6 +89,12 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
         WKwebview = [[JKWKWebView alloc]initWithFrame:CGRectMake(0, 0, width, height) andURLString:[self.url absoluteString]];
         WKwebview.currentViewController = self;
         WKwebview.delegate = self;
+        if (newTintColor) {
+            WKwebview.tintColor = newTintColor;
+        }
+        if (statusBarBackgroudColor) {
+            [WKwebview setStatusBarBGColor:statusBarBackgroudColor];
+        }
         [self.view addSubview:WKwebview];
         viewLoad = YES;
         return;
@@ -93,10 +104,15 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     jkuiwebview = [[JKUIWebview alloc]initWithFrame:CGRectMake(0, 0, width, height) andURLString:[self.url absoluteString]];
     jkuiwebview.delegate = self;
     jkuiwebview.currentViewController =self;
+    if (newTintColor) {
+        jkuiwebview.tintColor = newTintColor;
+    }
+    if (statusBarBackgroudColor) {
+        [jkuiwebview setStatusBarBGColor:statusBarBackgroudColor];
+    }
     [self.view addSubview:jkuiwebview];
     useType = JKWSafariViewUIWebview;
     viewLoad = YES;
-
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -105,6 +121,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     if (!viewLoad && _systemVer>=9 && !self.isAppleStoreLink) {
         safariVC = [[SFSafariViewController alloc]initWithURL:self.url entersReaderIfAvailable:NO];
         safariVC.delegate = self;
+        if (newTintColor) {
+        [safariVC.view setTintColor:newTintColor];
+        }
         [self presentViewController:safariVC animated:YES completion:nil];
         viewLoad = YES;
         return;
@@ -119,48 +138,12 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 #pragma mark - UI
 - (void)setTintColor:(UIColor *)tintColor{
     oldTintColor = [[UINavigationBar appearance] tintColor];
-    
-    if (useType == JKWSafariViewAppstore) {
-        [[UINavigationBar appearance] setTintColor:tintColor];
-    }
-    else if (useType == JKWSafariViewSF) {
-        if (safariVC) {
-            [safariVC.view setTintColor:tintColor];
-        }
-    }
-    else if (useType == JKWSafariViewWKWebview) {
-        if (WKwebview) {
-            WKwebview.tintColor = tintColor;
-        }
-    }
-    else {
-        if (jkuiwebview) {
-            jkuiwebview.tintColor = tintColor;
-        }
-    }
-
+    newTintColor = tintColor;
 }
 
 - (void)setStatusBarBGColor:(UIColor *)statusBarBGColor
 {
-    if (useType == JKWSafariViewAppstore) {
-
-    }
-    else if (useType == JKWSafariViewSF) {
-        if (safariVC) {
-
-        }
-    }
-    else if (useType == JKWSafariViewWKWebview) {
-        if (WKwebview) {
-            [WKwebview setStatusBarBGColor:statusBarBGColor];
-        }
-    }
-    else {
-        if (jkuiwebview) {
-            [jkuiwebview setStatusBarBGColor:statusBarBGColor];
-        }
-    }
+    statusBarBackgroudColor = statusBarBGColor;
 }
 
 - (void)restoreSystemColor{

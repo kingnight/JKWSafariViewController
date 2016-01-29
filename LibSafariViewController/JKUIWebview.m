@@ -105,8 +105,8 @@
     
     UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
-    safriItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(openSafri)];
-    
+//    safriItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(openSafri)];
+    safriItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_safari"] style:UIBarButtonItemStylePlain target:self action:@selector(openSafri)];    
     [toolbar setItems:[NSArray arrayWithObjects:backItem,flexible,forwoardItem,flexible,shareItem,flexible,safriItem,nil]];
     
     [self addSubview:toolbar];

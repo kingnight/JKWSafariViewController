@@ -33,6 +33,8 @@
 }
 - (IBAction)openNormal:(UIButton *)sender {
     JKWSafariViewController *controller = [[JKWSafariViewController alloc]initWithURL:[NSURL URLWithString:@"http://www.baidu.com"]];
+    controller.tintColor = [UIColor redColor];
+    controller.statusBarBGColor = [UIColor greenColor];
     [self.view.window.rootViewController presentViewController:controller animated:YES completion:nil];
 }
 
