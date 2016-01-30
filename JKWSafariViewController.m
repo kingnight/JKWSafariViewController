@@ -150,6 +150,10 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     [[UINavigationBar appearance] setTintColor:oldTintColor];
 }
 
+- (UIStatusBarStyle) preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 #pragma mark - private method
 
 - (NSString *)appIdInURL:(NSURL *)appStoreURL {
