@@ -66,6 +66,8 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     NSInteger width = self.view.frame.size.width;
     NSInteger height = self.view.frame.size.height;
     
+    //[self.view setBackgroundColor:[UIColor clearColor]];
+    
     //In-App App Store
     //SKStoreProductViewController 支持iOS6+
     if (self.isAppleStoreLink) {
@@ -226,7 +228,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 
 -(void)safariViewControllerDidFinish:(SFSafariViewController *)controller {
     // Done button pressed
-    //[controller dismissViewControllerAnimated:YES completion:nil];
+    [controller dismissViewControllerAnimated:YES completion:nil];
     [self dismissRootViewController];
     if (_delegate && [_delegate respondsToSelector:@selector(JKWSafariViewControllerDidFinish:)]) {
         [_delegate JKWSafariViewControllerDidFinish:self];
