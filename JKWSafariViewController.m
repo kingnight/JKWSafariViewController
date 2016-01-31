@@ -66,8 +66,6 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     NSInteger width = self.view.frame.size.width;
     NSInteger height = self.view.frame.size.height;
     
-    //[self.view setBackgroundColor:[UIColor clearColor]];
-    
     //In-App App Store
     //SKStoreProductViewController 支持iOS6+
     if (self.isAppleStoreLink) {

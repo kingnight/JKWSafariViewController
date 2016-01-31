@@ -17,10 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    UIView *addStatusBar = [[UIView alloc] init];
-//    addStatusBar.frame = CGRectMake(0, 0, self.window.frame.size.width, 20);
-//    addStatusBar.backgroundColor = UIColorFromRGB(0xF9F9F9); //assign here your color
-//    [self.window.rootViewController.view addSubview:addStatusBar];
+    [self.window setBackgroundColor:[UIColor whiteColor]];
     return YES;
 }
 

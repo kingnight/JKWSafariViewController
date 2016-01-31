@@ -7,8 +7,6 @@
 //
 
 #import "ViewController.h"
-#import "JKWKWebView.h"
-#import "JKWInternalConfig.h"
 #import "JKWSafariViewController.h"
 
 @interface ViewController ()
