@@ -17,6 +17,7 @@
     UIBarButtonItem *shareItem;
     UIBarButtonItem *safriItem;
     UIToolbar *toolbar;
+    UIView *addStatusBar;    
 }
 @property (nonatomic ,strong) UIWebView *webView;
 @property (nonatomic ,strong) UITextField *inputURLField;
@@ -49,7 +50,12 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
     UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
     UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-    
+
+    //状态栏
+    addStatusBar = [[UIView alloc] init];
+    addStatusBar.frame = CGRectMake(0, 0, self.bounds.size.width, 20);
+    addStatusBar.backgroundColor = UIColorFromRGB(0xF9F9F9); //assign here your color
+    [self addSubview:addStatusBar];
     
     self.barBackgroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 20, self.bounds.size.width, barBackgroundViewHeight)];
     [self.barBackgroundView setBackgroundColor:UIColorFromRGB(0xF9F9F9)];
@@ -140,6 +146,7 @@
 -(void)setStatusBarBGColor:(UIColor *)statusBarBGColor
 {
     [self.barBackgroundView setBackgroundColor:statusBarBGColor];
+    [addStatusBar setBackgroundColor:statusBarBGColor];
 }
 
 #pragma mark - Orientation Change
