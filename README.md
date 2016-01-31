@@ -26,7 +26,7 @@ SFSafariViewController is a handy class provides a standard interface for browsi
 
 JKWSafariViewController *controller = [[JKWSafariViewController alloc]initWithURL:[NSURL 		URLWithString:@"http://www.baidu.com"]];
 controller.tintColor = [UIColor redColor];//optinal 
-controller.statusBarBGColor = [UIColor greenColor];//optinal 
+controller.statusBarBGColor = [UIColor greenColor];//optinal, avialable in iOS8 and below
 [self presentViewController:controller animated:YES completion:nil];
 ```
 

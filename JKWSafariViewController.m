@@ -122,8 +122,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
         safariVC = [[SFSafariViewController alloc]initWithURL:self.url entersReaderIfAvailable:NO];
         safariVC.delegate = self;
         if (newTintColor) {
-        [safariVC.view setTintColor:newTintColor];
+            [safariVC.view setTintColor:newTintColor];
         }
+        
         [self presentViewController:safariVC animated:YES completion:nil];
         viewLoad = YES;
         return;
@@ -179,6 +180,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     if (isAllow != nil) {
         SKStoreProductViewController *sKStoreProductViewController = [[SKStoreProductViewController alloc] init];
         sKStoreProductViewController.delegate = self;
+        
         [sKStoreProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier: _appId}
                                       completionBlock:^(BOOL result, NSError *error) {
                                          if (result) {
