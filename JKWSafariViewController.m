@@ -75,6 +75,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
         if (newTintColor) {
         [[UINavigationBar appearance] setTintColor:newTintColor];
         }
+        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:bgView];
         NSString *appId = [self appIdInURL:self.url];
         [self showAppInApp:appId];
         viewLoad = YES;
@@ -83,6 +86,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     //使用SFSafariViewController 支持iOS9+
     if (_systemVer>=9) {
         useType = JKWSafariViewSF;
+        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
+        bgView.backgroundColor = [UIColor whiteColor];
+        [self.view addSubview:bgView];
         return;
     }
     //使用WKWebview 支持iOS8+
@@ -127,7 +133,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
             [safariVC.view setTintColor:newTintColor];
         }
         
-        [self presentViewController:safariVC animated:YES completion:nil];
+        [self presentViewController:safariVC animated:NO completion:nil];
         viewLoad = YES;
         return;
     }
@@ -233,7 +239,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
                                              NSLog(@"%@",error);
                                          }
                                     }];
-        [self presentViewController:sKStoreProductViewController animated:YES completion:nil];
+        [self presentViewController:sKStoreProductViewController animated:NO completion:nil];
     }
     else{
         //低于iOS6没有这个类
