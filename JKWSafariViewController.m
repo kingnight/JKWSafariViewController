@@ -34,6 +34,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     UIColor *newTintColor;
     UIColor *statusBarBackgroudColor;
     BOOL viewLoad;
+    SKStoreProductViewController *sKStoreProductViewController;
 }
 
 @property (nonatomic,assign) NSInteger systemVer;
@@ -60,6 +61,7 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     return self;
 }
 
+#pragma mark - life recycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -131,6 +133,17 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     }
 }
 
+- (void)dealloc{
+    WKwebview = nil;
+    jkuiwebview = nil;
+    safariVC = nil;
+    oldTintColor = nil;
+    newTintColor = nil;
+    statusBarBackgroudColor = nil;
+    viewLoad = NO;
+    sKStoreProductViewController = nil;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -174,11 +187,41 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
+//custom close
+- (void)closeJKWSafariViewController{
+    if (useType == JKWSafariViewAppstore) {
+        if (sKStoreProductViewController) {
+            [sKStoreProductViewController dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else if (useType == JKWSafariViewSF) {
+        if (safariVC) {
+            [safariVC dismissViewControllerAnimated:YES completion:nil];
+        }
+    }
+    else if (useType == JKWSafariViewWKWebview) {
+        if (WKwebview) {
+            [WKwebview removeFromSuperview];
+        }
+    }
+    if (useType == JKWSafariViewUIWebview) {
+        if (jkuiwebview) {
+            [jkuiwebview removeFromSuperview];
+        }
+    }
+    
+    if (_delegate && [_delegate respondsToSelector:@selector(JKWSafariViewControllerDidFinish:)]) {
+        [_delegate JKWSafariViewControllerDidFinish:self];
+    }
+    
+    [self dismissRootViewController];
+}
+
 #pragma mark - AppStore
 - (void)showAppInApp:(NSString *)_appId {
     Class isAllow = NSClassFromString(@"SKStoreProductViewController");
     if (isAllow != nil) {
-        SKStoreProductViewController *sKStoreProductViewController = [[SKStoreProductViewController alloc] init];
+        sKStoreProductViewController = [[SKStoreProductViewController alloc] init];
         sKStoreProductViewController.delegate = self;
         
         [sKStoreProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier: _appId}
@@ -240,6 +283,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 - (void)wkWebViewDidMissed
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+    if (_delegate && [_delegate respondsToSelector:@selector(JKWSafariViewControllerDidFinish:)]) {
+        [_delegate JKWSafariViewControllerDidFinish:self];
+    }
 }
 
 - (void)wkWebViewDidFinished{
@@ -258,6 +304,9 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 
 - (void)uiWebViewDidMissed{
     [self dismissViewControllerAnimated:YES completion:nil];
+    if (_delegate && [_delegate respondsToSelector:@selector(JKWSafariViewControllerDidFinish:)]) {
+        [_delegate JKWSafariViewControllerDidFinish:self];
+    }
 }
 
 - (void)uiWebViewDidFinished{

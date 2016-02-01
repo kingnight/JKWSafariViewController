@@ -52,4 +52,8 @@
  */
 @property(nonatomic, weak) id<JKWSafariViewControllerDelegate> delegate;
 
+/**
+ *   关闭页面接口，不要使用dismissViewControllerAnimated:completion:
+ */
+- (void)closeJKWSafariViewController;
 @end

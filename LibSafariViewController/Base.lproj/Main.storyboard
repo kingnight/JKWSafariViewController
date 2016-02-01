@@ -20,29 +20,35 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="苹果商店地址https://itunes.apple.com/cn/app/sou-gou-shu-ru-fa-dai-biao/id917670924?mt=8" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTm-R4-KFv">
                                 <rect key="frame" x="0.0" y="40" width="600" height="41"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="普通网页地址 http://www.sohu.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RLm-QJ-AIy">
-                                <rect key="frame" x="0.0" y="131" width="600" height="21"/>
+                                <rect key="frame" x="0.0" y="131" width="600" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YYq-48-9Pr">
-                                <rect key="frame" x="255" y="201" width="90" height="30"/>
+                                <rect key="frame" x="255" y="200" width="90" height="30"/>
                                 <state key="normal" title="打开苹果商店"/>
                                 <connections>
                                     <action selector="openAppStoreLink:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mHR-3N-fGs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Uzn-hJ-fv1">
-                                <rect key="frame" x="255" y="250" width="90" height="30"/>
+                                <rect key="frame" x="255" y="249" width="90" height="30"/>
                                 <state key="normal" title="打开普通网页"/>
                                 <connections>
                                     <action selector="openNormal:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dut-uu-hOt"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="页面打开后5秒后自动关闭" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggW-E4-3Xh">
+                                <rect key="frame" x="201.5" y="289.5" width="197.5" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -52,9 +58,11 @@
                             <constraint firstItem="KTm-R4-KFv" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="d9e-Dh-uBj"/>
                             <constraint firstAttribute="trailing" secondItem="RLm-QJ-AIy" secondAttribute="trailing" id="eFd-nb-JOs"/>
                             <constraint firstItem="RLm-QJ-AIy" firstAttribute="top" secondItem="KTm-R4-KFv" secondAttribute="bottom" constant="50" id="fpB-p3-l9I"/>
+                            <constraint firstItem="ggW-E4-3Xh" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="fy5-vz-cBN"/>
                             <constraint firstItem="YYq-48-9Pr" firstAttribute="top" secondItem="RLm-QJ-AIy" secondAttribute="bottom" constant="49" id="mvl-gX-yU8"/>
                             <constraint firstItem="Uzn-hJ-fv1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oKK-Hf-NtL"/>
                             <constraint firstItem="Uzn-hJ-fv1" firstAttribute="top" secondItem="YYq-48-9Pr" secondAttribute="bottom" constant="19" id="pgJ-z5-PHz"/>
+                            <constraint firstItem="ggW-E4-3Xh" firstAttribute="top" secondItem="Uzn-hJ-fv1" secondAttribute="bottom" constant="10" id="qJd-86-eqQ"/>
                             <constraint firstAttribute="trailing" secondItem="KTm-R4-KFv" secondAttribute="trailing" id="twv-sF-6MG"/>
                         </constraints>
                     </view>
