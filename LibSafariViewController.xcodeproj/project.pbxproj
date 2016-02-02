@@ -8,9 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		292910FF1C59EA520080D344 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 292910FE1C59EA520080D344 /* WebKit.framework */; };
-		292911041C59F5620080D344 /* JKUIWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = 292911031C59F5620080D344 /* JKUIWebview.m */; };
 		29A0DBB61C5B120700EC3C18 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A0DBB51C5B120700EC3C18 /* StoreKit.framework */; };
 		29A0DBB81C5B150600EC3C18 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A0DBB71C5B150600EC3C18 /* UIKit.framework */; };
+		29E9C0831C603E25003B1249 /* JKUIWebview.m in Sources */ = {isa = PBXBuildFile; fileRef = 29E9C0821C603E25003B1249 /* JKUIWebview.m */; };
 		29F2E9AC1C55B5BF0012FCC5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2E9AB1C55B5BF0012FCC5 /* main.m */; };
 		29F2E9AF1C55B5BF0012FCC5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2E9AE1C55B5BF0012FCC5 /* AppDelegate.m */; };
 		29F2E9B21C55B5BF0012FCC5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29F2E9B11C55B5BF0012FCC5 /* ViewController.m */; };
@@ -23,10 +23,10 @@
 
 /* Begin PBXFileReference section */
 		292910FE1C59EA520080D344 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
-		292911021C59F5620080D344 /* JKUIWebview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUIWebview.h; sourceTree = "<group>"; };
-		292911031C59F5620080D344 /* JKUIWebview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUIWebview.m; sourceTree = "<group>"; };
 		29A0DBB51C5B120700EC3C18 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		29A0DBB71C5B150600EC3C18 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		29E9C0811C603E25003B1249 /* JKUIWebview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUIWebview.h; sourceTree = "<group>"; };
+		29E9C0821C603E25003B1249 /* JKUIWebview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUIWebview.m; sourceTree = "<group>"; };
 		29F2E9A71C55B5BF0012FCC5 /* LibSafariViewController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LibSafariViewController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		29F2E9AB1C55B5BF0012FCC5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29F2E9AD1C55B5BF0012FCC5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -72,12 +72,12 @@
 		292911011C59F1CD0080D344 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				29E9C0811C603E25003B1249 /* JKUIWebview.h */,
+				29E9C0821C603E25003B1249 /* JKUIWebview.m */,
 				29F2E9C11C55B6110012FCC5 /* JKWSafariViewController.h */,
 				29F2E9C21C55B6110012FCC5 /* JKWSafariViewController.m */,
 				29F2E9DC1C55D9A40012FCC5 /* JKWKWebView.h */,
 				29F2E9DD1C55D9A40012FCC5 /* JKWKWebView.m */,
-				292911021C59F5620080D344 /* JKUIWebview.h */,
-				292911031C59F5620080D344 /* JKUIWebview.m */,
 				29F2E9DF1C57058E0012FCC5 /* JKWInternalConfig.h */,
 			);
 			name = Library;
@@ -204,7 +204,7 @@
 				29F2E9B21C55B5BF0012FCC5 /* ViewController.m in Sources */,
 				29F2E9C31C55B6110012FCC5 /* JKWSafariViewController.m in Sources */,
 				29F2E9AF1C55B5BF0012FCC5 /* AppDelegate.m in Sources */,
-				292911041C59F5620080D344 /* JKUIWebview.m in Sources */,
+				29E9C0831C603E25003B1249 /* JKUIWebview.m in Sources */,
 				29F2E9AC1C55B5BF0012FCC5 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
