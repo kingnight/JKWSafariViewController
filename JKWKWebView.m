@@ -143,6 +143,14 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]];
     [self.webView loadRequest:request];
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        [self setVerticalFrame];
+    }
+    else if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight){
+        [self setHorizontalFrame];
+    }
 }
 
 - (void)closeWebView{
