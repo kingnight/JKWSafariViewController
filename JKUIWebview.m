@@ -16,8 +16,10 @@
     UIBarButtonItem *forwoardItem;
     UIBarButtonItem *shareItem;
     UIBarButtonItem *safriItem;
+    UIBarButtonItem *flexible;
     UIToolbar *toolbar;
-    UIView *addStatusBar;    
+    UIView *addStatusBar;
+    UIPopoverController *currentPopover;
 }
 @property (nonatomic ,strong) UIWebView *webView;
 @property (nonatomic ,strong) UITextField *inputURLField;
@@ -46,11 +48,6 @@
 
 #pragma mark - UI Layout
 - (void)initAllUIComponents{
-    //view
-    self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleBottomMargin |
-    UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin |
-    UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-
     //状态栏
     addStatusBar = [[UIView alloc] init];
     addStatusBar.frame = CGRectMake(0, 0, self.bounds.size.width, 20);
@@ -89,18 +86,8 @@
     
     self.webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, barBackgroundViewHeight+20, self.bounds.size.width, self.bounds.size.height-44)];
     self.webView.delegate = self;
+    self.webView.allowsInlineMediaPlayback = YES;
     [self insertSubview:self.webView belowSubview:self.barBackgroundView];
-    
-    //constraints
-//    [self.webView setTranslatesAutoresizingMaskIntoConstraints:NO];
-//    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationEqual toItem:self.barBackgroundView attribute:NSLayoutAttributeWidth multiplier:1 constant:0];
-//    [self addConstraint:widthConstraint];
-//    
-//    NSLayoutConstraint *topConstraint = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.barBackgroundView attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
-//    [self addConstraint:topConstraint];
-//    
-//    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:self.webView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeHeight multiplier:1 constant:0];
-//    [self addConstraint:heightConstraint];
     
     toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, self.bounds.size.height-44, self.bounds.size.width, 44);
@@ -109,7 +96,7 @@
     
     shareItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
     
-    UIBarButtonItem *flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
+    flexible = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:self action:nil];
     
 //    safriItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(openSafri)];
     safriItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"icon_safari"] style:UIBarButtonItemStylePlain target:self action:@selector(openSafri)];    
@@ -125,6 +112,14 @@
     
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:_urlString]];
     [self.webView loadRequest:request];
+    
+    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if (interfaceOrientation == UIDeviceOrientationPortrait || interfaceOrientation == UIDeviceOrientationPortraitUpsideDown) {
+        [self setVerticalFrame];
+    }
+    else if (interfaceOrientation == UIDeviceOrientationLandscapeLeft || interfaceOrientation == UIDeviceOrientationLandscapeRight){
+        [self setHorizontalFrame];
+    }
 }
 
 - (void)closeWebView{
@@ -183,6 +178,9 @@
     if (systemVer < 8) {
         self.barBackgroundView.frame = CGRectMake(0, 20, self.bounds.size.width, barBackgroundViewHeight);
     }
+    else{
+        self.barBackgroundView.frame = CGRectMake(0, 0, self.bounds.size.width, barBackgroundViewHeight);
+    }
     self.inputURLField.frame = CGRectMake(50,yPos,self.bounds.size.width-60,itemHeight);
     self.stopReloadBtn.frame = CGRectMake(self.bounds.size.width-45, yPos, 30, itemHeight);
     toolbar.frame = CGRectMake(0, self.bounds.size.height-44, self.bounds.size.width, 44);
@@ -216,7 +214,17 @@
         NSString *url = _urlString;
         NSArray *arrayOfItems = [NSArray arrayWithObjects:url, nil];
         UIActivityViewController *activityController = [[UIActivityViewController alloc]initWithActivityItems:arrayOfItems applicationActivities:nil];
-        [self.currentViewController presentViewController:activityController animated:YES completion:nil];
+        //if iPhone
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [self.currentViewController presentViewController:activityController animated:YES completion:nil];
+        }
+        //if iPad
+        else {
+            // Change Rect to position Popover
+            UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityController];
+            currentPopover =popup;
+            [currentPopover presentPopoverFromBarButtonItem:shareItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
 }
 
@@ -238,6 +246,10 @@
         [_delegate uiWebViewDidFinished];
     }
     [self.stopReloadBtn setImage:[UIImage imageNamed:@"icon_refresh"] forState:UIControlStateNormal];
+    NSString *theTitle=[webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    if (theTitle.length>0) {
+        self.inputURLField.text = theTitle;
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {

@@ -65,8 +65,10 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    NSInteger width = self.view.frame.size.width;
-    NSInteger height = self.view.frame.size.height;
+    CGRect screenBounds = [self currentScreenBoundsDependOnOrientation];
+    NSInteger width = screenBounds.size.width; //self.view.bounds.size.width;
+    NSInteger height = screenBounds.size.height; //self.view.bounds.size.height;
+    //NSLog(@"width = %d,height=%d",width,height);
     
     //In-App App Store
     //SKStoreProductViewController 支持iOS6+
@@ -85,11 +87,11 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
     }
     //使用SFSafariViewController 支持iOS9+
     if (_systemVer>=9) {
-        useType = JKWSafariViewSF;
-        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
-        bgView.backgroundColor = [UIColor whiteColor];
-        [self.view addSubview:bgView];
-        return;
+//        useType = JKWSafariViewSF;
+//        UIView *bgView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, width, height)];
+//        bgView.backgroundColor = [UIColor whiteColor];
+//        [self.view addSubview:bgView];
+//        return;
     }
     //使用WKWebview 支持iOS8+
     if (_systemVer>=8) {
@@ -156,6 +158,26 @@ typedef NS_ENUM(NSInteger,JKWSafariViewUseType) {
 }
 
 #pragma mark - UI
+
+-(CGRect)currentScreenBoundsDependOnOrientation
+{
+    
+    CGRect screenBounds = [UIScreen mainScreen].bounds ;
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        return screenBounds;
+    }
+    CGFloat width = CGRectGetWidth(screenBounds)  ;
+    CGFloat height = CGRectGetHeight(screenBounds) ;
+    UIInterfaceOrientation interfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    
+    if(UIInterfaceOrientationIsPortrait(interfaceOrientation)){
+        screenBounds.size = CGSizeMake(width, height);
+    }else if(UIInterfaceOrientationIsLandscape(interfaceOrientation)){
+        screenBounds.size = CGSizeMake(height, width);
+    }
+    return screenBounds ;
+}
+
 - (void)setTintColor:(UIColor *)tintColor{
     oldTintColor = [[UINavigationBar appearance] tintColor];
     newTintColor = tintColor;

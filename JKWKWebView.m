@@ -101,7 +101,9 @@
     
     //webview
     //    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, barBackgroundViewHeight+20, self.bounds.size.width, self.bounds.size.height-44)];
-    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.allowsInlineMediaPlayback = YES;
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:configuration];
     self.webView.navigationDelegate = self;
     [self insertSubview:self.webView belowSubview:self.barBackgroundView];
     
@@ -118,7 +120,7 @@
     
     [self.webView addObserver:self forKeyPath:@"loading" options:NSKeyValueObservingOptionNew context:nil];
     [self.webView addObserver:self forKeyPath:@"estimatedProgress" options:NSKeyValueObservingOptionNew context:nil];
-    
+    [self.webView addObserver:self forKeyPath:@"title" options:NSKeyValueObservingOptionNew context:nil];
     
     toolbar = [[UIToolbar alloc] init];
     toolbar.frame = CGRectMake(0, self.bounds.size.height-44, self.bounds.size.width, 44);
@@ -156,6 +158,7 @@
 - (void)closeWebView{
     [self.webView removeObserver:self forKeyPath:@"loading"];
     [self.webView removeObserver:self forKeyPath:@"estimatedProgress"];
+    [self.webView removeObserver:self forKeyPath:@"title"];
     [self.webView stopLoading];
     self.webView.navigationDelegate =nil;
     self.webView =nil;
@@ -206,7 +209,13 @@
 
 - (void)setHorizontalFrame{
     NSLog(@"Horizontal");
-    self.barBackgroundView.frame = CGRectMake(0, 0, self.bounds.size.width, barBackgroundViewHeight);
+    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
+        self.barBackgroundView.frame = CGRectMake(0, 0, self.bounds.size.width, barBackgroundViewHeight);
+    }
+    else{
+        self.barBackgroundView.frame = CGRectMake(0, 20, self.bounds.size.width, barBackgroundViewHeight);
+    }
+
     self.inputURLField.frame = CGRectMake(50,yPos,self.bounds.size.width-60,itemHeight);
     self.progressView.frame = CGRectMake(0, 43, self.bounds.size.width, 1);
     self.stopReloadBtn.frame = CGRectMake(self.bounds.size.width-45, yPos, 30, itemHeight);
@@ -241,7 +250,16 @@
         NSString *url = _urlString;
         NSArray *arrayOfItems = [NSArray arrayWithObjects:url, nil];
         UIActivityViewController *activityController = [[UIActivityViewController alloc]initWithActivityItems:arrayOfItems applicationActivities:nil];
-        [self.currentViewController presentViewController:activityController animated:YES completion:nil];
+        //if iPhone
+        if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone) {
+            [self.currentViewController presentViewController:activityController animated:YES completion:nil];
+        }
+        //if iPad
+        else {
+            // Change Rect to position Popover
+            UIPopoverController *popup = [[UIPopoverController alloc] initWithContentViewController:activityController];
+            [popup presentPopoverFromBarButtonItem:shareItem permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        }
     }
 }
 
@@ -262,9 +280,9 @@
         //        self.stopReloadButton.image = self.webView.loading ? [UIImage imageNamed:@"icon_stop"] : [UIImage imageNamed:@"icon_refresh"];
         [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:self.webView.loading];
         //
-        if (!self.webView.loading) {
-            self.inputURLField.text = self.webView.URL.absoluteString;
-        }
+//        if (!self.webView.loading) {
+//            self.inputURLField.text = self.webView.URL.absoluteString;
+//        }
         
     } else if ([keyPath isEqualToString:@"estimatedProgress"]) {
         
@@ -274,6 +292,8 @@
         if (self.webView.estimatedProgress==1) {
             [self.stopReloadBtn setImage:[UIImage imageNamed:@"icon_refresh"] forState:UIControlStateNormal];
         }
+    else if ([keyPath isEqualToString:@"title"]){
+        self.inputURLField.text = change[@"new"];
     }
     
 }
